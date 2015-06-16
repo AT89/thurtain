@@ -1,0 +1,60 @@
+﻿<div id="test-container">
+    <div style="width:100%;height:60px;background-color:black;float:left;padding:5px;color:white;">
+        <h4>Game Logic Tester</h4>
+    </div>
+
+    <div style="width:100%;height:100%;float:left;padding:30px;">
+        <div id="cards">
+            <div class="playing-card-test" ng-repeat="card in vm.cards"
+                 ng-style="{'background-position': card.SpriteX + 'px ' + card.SpriteY + 'px'}"
+                 ng-click="vm.selectCard(card)"></div>
+        </div>
+        <div style="width:100%;height:100%;float:left;margin-top:20px;border:1px solid black;padding:10px;">
+            <button type="button" class="btn btn-default" ng-click="vm.selectTestMode(1)">Test Valid Hands</button>
+            <button type="button" class="btn btn-default" ng-click="vm.selectTestMode(2)">Test Hands vs Hands</button>
+            <button type="button" class="btn btn-default" ng-click="vm.clearCardSelection()">Clear Card Selection</button>
+            <span style="font-size:20px;"><b>{{vm.testingModeHeader}}</b></span>
+
+            <div id="validHandContainer"
+                 style="width: 100%; height: 100%; padding: 10px; display: none;">
+                <b>Cards Selected</b>
+                <div style="width:100%;padding:20px;">
+                    <div class="playing-card" ng-repeat="card in vm.selectedCards"
+                         ng-style="{'background-position': card.SpriteX + 'px ' + card.SpriteY + 'px'}"></div>
+                </div>
+                <div style="padding-top:20px;clear:both;">
+                    <button id="testValidHandButton" style="display:none;" type="button" class="btn btn-default"
+                            ng-click="vm.testIfValidHand()">Submit Hand</button>
+                </div>
+                <div id="valid-hand-result-container" style="margin-top:20px;">
+                    <h2>{{vm.validHandTestResult}}</h2>
+                </div>
+            </div>
+
+            <div id="HandvsHandContainer"
+                 style="width: 100%; height: 100%; padding: 10px; display: none;">
+                <b>Select opponents cards first, then yours next.</b>
+                <div style="width: 100%; padding: 5px; clear: both;">
+                    <div class="playing-card" ng-repeat="card in vm.opponentCards"
+                         ng-style="{'background-position': card.SpriteX + 'px ' + card.SpriteY + 'px'}"></div>
+                </div>
+                <div style="width: 100%; padding: 5px; clear: both;">
+                    <div class="playing-card" ng-repeat="card in vm.yourCards"
+                         ng-style="{'background-position': card.SpriteX + 'px ' + card.SpriteY + 'px'}"></div>
+                </div>
+                <div style="padding-top:20px;clear:both;">
+                    <button id="testHandvsHandButton" style="display:none;" type="button" class="btn btn-default"
+                            ng-click="vm.testHandvsHand()">
+                        {{vm.testHandvsHandButtonText}}
+                    </button>
+                </div>
+                <div style="margin-top:20px;">
+                    <h2>{{vm.HandvsHandResult}}</h2>
+                </div>
+            </div>
+    </div>
+
+    
+
+
+</div>

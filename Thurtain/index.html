@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="Content/normalize.css" rel="stylesheet" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/bootstrap-theme.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" />
+    <link href="Content/animate.css" rel="stylesheet" />
+    <link href="Content/main.css" rel="stylesheet" />
+
+
+</head>
+<body ng-app="app" ng-controller="rootController as vm">
+
+    <div id="app-wrapper">
+
+        <!-- use ng-view only for testing -->
+        <div ng-view=""></div>
+
+        <div id="header-container">
+            <img id="header-logo" src="img/logo.jpg" />
+            <div class="header-menu-item">GAME</div>
+            <div class="header-menu-item">LEADERBOARD</div>
+            <div class="header-menu-item">RULES</div>
+            <div class="header-menu-item">TESTS</div>
+        </div>
+
+        <div id="header-clear"> </div>
+
+        <div id="loading-container">
+                    <i class="fa fa-circle-o-notch fa-spin"></i> 
+                    Initializing connection...
+        </div>
+
+        <div id="login-container">
+            Choose a username:
+            <br/><span id="username-error">Username already in use. Please choose another one!</span>
+            <input id="username-input" type="text" class="form-control" placeholder="type in a username" />
+            <button id="loginButton" type="button" class="btn btn-default">Login as user</button>
+            <!-- TESTING BELOW -->
+            <br/><br/><br/>
+            <button id="testAjax">test jquery ajax and controller!</button>
+
+        </div>
+
+        <div id="game-container" class="debug-border"> 
+            <div id="waiting-screen">
+                <div id="sit-to-play" ng-click="vm.sit()">
+                    <i class="fa fa-arrow-circle-o-down"></i> Sitdown to play
+                </div>
+                <div id="stand-up" ng-click="vm.stand()">
+                    <i class="fa fa-arrow-circle-o-up"></i> Standup
+                </div>
+            </div>
+            
+            <div id="player-screen">
+                <div id="player-screen-table">
+                    <div id="player-screen-info-bar">
+                        <div id="player-screen-table-opponent"></div>
+                        <div id="player-screen-whos-turn"></div>
+                        <div id="player-screen-disc">
+                            <div style="position:absolute;right:0;padding-right:10px;">
+                                <button type="button" class="btn btn-default" ng-click="vm.leaveGame()">LEAVE GAME</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="player-screen-table-notifier"></div>
+                    <div id="player-screen-table-opponentcards">
+
+                    </div>
+                    <div id="player-screen-table-liveplay">
+                        <div class="playing-card" ng-repeat="card in vm.liveTableHand"
+                             ng-style="{'background-position': card.SpriteX + 'px ' + card.SpriteY + 'px'}"></div>
+                    </div>
+                </div>
+                <div id="player-screen-cards">
+                    <div class="playing-card animated fadeIn" ng-repeat="card in vm.myPlayingCards"
+                         ng-style="{'background-position': card.SpriteX + 'px ' + card.SpriteY + 'px'}"
+                         ng-click="vm.selectCard($event, card)"></div>
+                    <div id="submit-turn-container" style="clear:both;margin-top:20px;">
+                        <button type="button" class="btn btn-default" 
+                                ng-disabled="!vm.myTurn" id="playerTurnSubmitButton">
+                            PLAY HAND
+                        </button>
+                        <button type="button" class="btn btn-default"
+                                ng-disabled="!vm.myTurn" id="playerTurnSkipButton">
+                            SKIP TURN
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+
+            <div id="viewer-screen">
+                <div id="viewer-player-one">
+                    <div id="viewer-whos-turn">{{vm.thisPlayersTurn}}'s turn</div>
+
+                    <div class="player-username">{{vm.playerOneUsername}}</div>
+
+                    <div class="viewer-type-header">CARDS REMAINING</div>
+                    <div class="viewer-type-header">
+                        <div class="viewer-card animated fadeIn" ng-repeat="card in vm.playerOneCards"
+                             ng-style="{'background-position': card.SpriteX + 'px ' + card.SpriteY + 'px'}"
+                             ng-click="vm.selectCard($event, card)"></div>
+                    </div>
+                    <div class="viewer-type-header" id="player1-cardplayed-header">CARD PLAYED</div>
+                    <div class="viewer-type-header">
+                        <div class="viewer-card animated fadeIn" ng-repeat="card in vm.playerOneCardsPlayed"
+                             ng-style="{'background-position': card.SpriteX + 'px ' + card.SpriteY + 'px'}"
+                             ng-click="vm.selectCard($event, card)"></div>
+                    </div>
+                </div>
+                <div id="viewer-live-table">
+                    <div class="viewer-card animated fadeIn" ng-repeat="card in vm.lastCardsPlayed"
+                         ng-style="{'background-position': card.SpriteX + 'px ' + card.SpriteY + 'px'}"
+                         ng-click="vm.selectCard($event, card)"></div></div>
+                <div id="viewer-player-two">
+                    <div class="player-username">{{vm.playerTwoUsername}}</div>
+
+                    <div class="viewer-type-header">CARDS REMAINING</div>
+                    <div class="viewer-type-header">
+                        <div class="viewer-card animated fadeIn" ng-repeat="card in vm.playerTwoCards"
+                             ng-style="{'background-position': card.SpriteX + 'px ' + card.SpriteY + 'px'}"
+                             ng-click="vm.selectCard($event, card)"></div>
+                    </div>
+                    <div class="viewer-type-header" id="player2-cardplayed-header">CARD PLAYED</div>
+                    <div class="viewer-type-header">
+                        <div class="viewer-card animated fadeIn" ng-repeat="card in vm.playerTwoCardsPlayed"
+                             ng-style="{'background-position': card.SpriteX + 'px ' + card.SpriteY + 'px'}"
+                             ng-click="vm.selectCard($event, card)"></div>
+                    </div>
+                </div>
+            </div>
+            
+
+        </div><!-- /#game-container -->
+
+        <div id="users-container">
+            <div class="t-center"><h4 id="users-header">Users</h4></div>
+            <div class="user" ng-repeat="user in vm.connectedUsers">
+                <i class="fa fa-user"></i>
+                <span class="userlist-name">{{user.UserName}}</span>
+                <!--<br />{{user.ConnectionId}}-->
+            </div>
+        </div>
+
+        <div id="chat-container">
+            <div id="chat-input">
+                <textarea id="chat-textbox" placeholder="type chat message here" style="padding:5px;"></textarea>
+                <button id="chat-send">Send Message</button>
+            </div>
+            <div id="chat-messages">
+
+            </div>
+
+            
+        </div><!-- /#chat-container -->
+    </div><!-- /#app-wrapper-->
+    
+
+    
+    
+
+
+    <script src="Scripts/Vendor/jquery-1.9.1.js"></script>
+    <script src="Scripts/Vendor/jquery.signalR-2.2.0.js"></script>
+    <script src="/signalr/js"></script>
+
+    <!-- For DEV (comment out before pushing out to production server) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-resource.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.16/angular-animate.min.js"></script>
+
+<!-- For PRODUCTION (comment out while developing) -->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-route.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-resource.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.16/angular-animate.min.js.map"></script>-->
+
+    <!-- appcode -->
+    <script src="Scripts/App/app.js"></script>
+    <script src="Scripts/App/route-config.js"></script>
+    <script src="Scripts/App/uiDomService.js"></script>
+    <script src="Scripts/App/gameDomService.js"></script>
+    <script src="Scripts/App/chatService.js"></script>
+    <script src="Scripts/App/gameService.js"></script>
+    <script src="Scripts/App/validHandService.js"></script>
+    <script src="Scripts/App/handBattleService.js"></script>
+    <script src="Scripts/App/userService.js"></script>
+    <script src="Scripts/App/rootController.js"></script>
+    <script src="Scripts/App/homeController.js"></script>
+
+    <!-- Testing -->
+    <script src="Test/testController.js"></script>
+
+</body>
+</html>
