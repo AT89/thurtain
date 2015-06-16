@@ -37,7 +37,7 @@
 
         function standEvent(standEventData) {
             console.log(standEventData);
-            chatService.appendGameMessage(standEventData.User.UserName + ' has stoodup/left the game.');
+            chatService.appendGameMessage(standEventData.User.UserName + ' has left the game.');
             uiDomService.stand();
         }
 

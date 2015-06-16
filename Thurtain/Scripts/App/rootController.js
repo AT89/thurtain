@@ -102,7 +102,6 @@
         }
 
         function displayGameNotification(message, time) {
-            //$('#player-screen-table-notifier').html(message).fadeIn(400).delay(2000).fadeOut(1000);
             if (time == null)
                 time = 2500;
             $('#player-screen-table-notifier').text(message);
