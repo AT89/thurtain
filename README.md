@@ -6,4 +6,10 @@ A real-time card game playable via a browser. In Tien Lien, you start with a han
 
 It's of course best played with 2 different people, but you can test the functionality by opening the same page in two separate windows/tabs on your browser.
 
-sd
+##Technical Specs
+
+The clientside UI is built with Angular, while the backend utilizes a C#/.NET stack to handle the live connections, interact with the DB, and define the models and entities. Below is a more detailed list of technologies used:
+
+### FRONTEND
+* AngularJS, HTML5, CSS
+* The game logic is handled here (what hands are playable, what beats what, etc.)
