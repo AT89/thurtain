@@ -21,10 +21,10 @@ namespace DbService
             using (ThurtainContext db = new ThurtainContext())
             {
                 UserStat loserRow = db.UserStats.Where(u => u.UserName == loser.UserName).FirstOrDefault();
-                loserRow.Losses = loserRow.Losses + 1;
+                loserRow.Losses++;
 
                 UserStat winnerRow = db.UserStats.Where(u => u.UserName == winner.UserName).FirstOrDefault();
-                winnerRow.Wins = winnerRow.Wins + 1;
+                winnerRow.Wins++;
 
                 db.GameResults.Add(new GameResult()
                     {
