@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using DbService;
 using DbService.Entities;
 using Newtonsoft.Json;
+using UserService;
 
 namespace Thurtain.Controllers
 {
@@ -24,13 +25,20 @@ namespace Thurtain.Controllers
             //return UserDbService.CheckUserExistsByEmail(email);
             if (UserDbService.CheckUserExistsByEmail(email))
             {
-                User user = UserDbService.GetUserByEmail(email);
+                DbService.Entities.User user = UserDbService.GetUserByEmail(email);
                 return JsonConvert.SerializeObject(user);
             }
             else
             {
                 return null;
             }
+        }
+
+        [HttpPost]
+        public bool CanJoinGame()
+        {
+            int currentNumPlayers = Players.GetPlayers().Count;
+            return (currentNumPlayers < 2) ? true : false;
         }
 
 	}

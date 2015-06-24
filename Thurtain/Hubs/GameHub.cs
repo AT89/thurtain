@@ -15,21 +15,27 @@ namespace Thurtain.Hubs
 {
     public class GameHub : Hub
     {
+
         public void PlayerSits()
         {
-            Players.AddPlayer(Context.ConnectionId);
-            Viewers.UpdateViewerList();
-
-            PlayerSatDown sitEventData = new PlayerSatDown()
+            if (Players.GetPlayers().Count < 2)
             {
-                User = AllUsers.GetUserBy(Context.ConnectionId),
-                SeatsAvailable = 2 - Players.GetPlayers().Count
-            };
+                Players.AddPlayer(Context.ConnectionId);
+                Viewers.UpdateViewerList();
 
-            //Clients.All.SitEvent(sitEventData);
+                PlayerSatDown sitEventData = new PlayerSatDown()
+                {
+                    User = AllUsers.GetUserBy(Context.ConnectionId),
+                    SeatsAvailable = 2 - Players.GetPlayers().Count
+                };
 
-            if (Players.GetPlayers().Count == 2)
-                GameStart();
+                if (Players.GetPlayers().Count == 2)
+                    GameStart();
+            }
+            //else if (Players.GetPlayers().Count == 2)
+            //{
+            //    Clients.Caller.NotifyGameFull();
+            //}
         }
 
         public void PlayerStands(bool hasPlayedHand)

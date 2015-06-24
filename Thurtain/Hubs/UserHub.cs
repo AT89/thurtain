@@ -56,20 +56,20 @@ namespace Thurtain.Hubs
             if (Players.GetPlayers().Count == 2 && (possiblePlayer != null))
             {
                 GameDbService.PlayerLeft(Context.ConnectionId);
+
+                Players.RemovePlayer(Context.ConnectionId);
+                PlayerStoodUp standEventData = new PlayerStoodUp()
+                {
+                    User = AllUsers.GetUserBy(Context.ConnectionId),
+                    SeatsAvailable = 2 - Players.GetPlayers().Count
+                };
+
+                IHubContext gameHubContext = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
+                gameHubContext.Clients.All.StandEvent(standEventData);
+
+                AllUsers.RemoveUserBy(Context.ConnectionId);
+                SendUpdatedAllUsersList();
             }
-
-            Players.RemovePlayer(Context.ConnectionId);
-            PlayerStoodUp standEventData = new PlayerStoodUp()
-            {
-                User = AllUsers.GetUserBy(Context.ConnectionId),
-                SeatsAvailable = 2 - Players.GetPlayers().Count
-            };
-
-            IHubContext gameHubContext = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
-            gameHubContext.Clients.All.StandEvent(standEventData);
-
-            AllUsers.RemoveUserBy(Context.ConnectionId);
-            SendUpdatedAllUsersList();
 
             return base.OnDisconnected(true);
         }

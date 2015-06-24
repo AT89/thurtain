@@ -535,3 +535,9 @@ html,body {
 .fs-80 {
     font-size: 80%;
 }
+
+#gamefull {
+    display: none;
+    float:left;
+    clear:both;
+}
