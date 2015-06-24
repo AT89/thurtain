@@ -145,6 +145,7 @@
                 vm.gameWon = true;
                 // test.................................
                 displayGameNotification('YOU WON!', 3500);
+                gameHub.server.getLeaderboard();
             }
         }
 

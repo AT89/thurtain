@@ -64,6 +64,7 @@
 
         function stand() {
             gameHub.server.playerStands(vm.hasPlayedHand);
+            gameHub.server.getLeaderboard();
         }
 
         function leaveGame() {
