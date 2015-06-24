@@ -24,7 +24,7 @@ namespace UserService
         public static void RemovePlayer(string connectionId)
         {
             if (players.Count > 0)
-                players = players.Where(p => p.ConnectionId != connectionId).ToList();
+                players.RemoveAll(p => p.ConnectionId == connectionId);
         }
 
         public static List<User> GetPlayers()

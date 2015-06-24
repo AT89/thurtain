@@ -39,6 +39,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -46,11 +47,54 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\GameResult.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserStat.cs" />
+    <Compile Include="GameDbService.cs" />
+    <Compile Include="MappingConfigurations\GameResultConfiguration.cs" />
+    <Compile Include="MappingConfigurations\UserConfiguration.cs" />
+    <Compile Include="MappingConfigurations\UserStatConfiguration.cs" />
+    <Compile Include="Migrations\201506161828151_AddUserIDColumn.cs" />
+    <Compile Include="Migrations\201506161828151_AddUserIDColumn.Designer.cs">
+      <DependentUpon>201506161828151_AddUserIDColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506161908394_updateGameResult.cs" />
+    <Compile Include="Migrations\201506161908394_updateGameResult.Designer.cs">
+      <DependentUpon>201506161908394_updateGameResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201506162029453_AddedUserStatEntity.cs" />
+    <Compile Include="Migrations\201506162029453_AddedUserStatEntity.Designer.cs">
+      <DependentUpon>201506162029453_AddedUserStatEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThurtainContext.cs" />
+    <Compile Include="UserDbService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameService\GameService.csproj">
+      <Project>{4e213035-8c51-476e-b7d8-8ddf6f0e607f}</Project>
+      <Name>GameService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UserService\UserService.csproj">
+      <Project>{ebccef87-d078-44b5-a4d3-a2b7b184d576}</Project>
+      <Name>UserService</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201506161828151_AddUserIDColumn.resx">
+      <DependentUpon>201506161828151_AddUserIDColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506161908394_updateGameResult.resx">
+      <DependentUpon>201506161908394_updateGameResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201506162029453_AddedUserStatEntity.resx">
+      <DependentUpon>201506162029453_AddedUserStatEntity.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

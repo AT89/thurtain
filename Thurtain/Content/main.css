@@ -1,3 +1,8 @@
+@import url(http://fonts.googleapis.com/css?family=Orbitron:700);
+
+.orbitron { font-family: 'Orbitron', sans-serif; }
+
+
 /* color classes */
 .bg-dg {
     background-color: #424242;
@@ -18,7 +23,6 @@ html,body {
 
 #header-logo {
     float:left;
-    border-right: 1px solid #EEEEEE;
     padding-right:15px;
 }
 
@@ -32,6 +36,11 @@ html,body {
     top: 0;
     left: 0;
     padding:2px;
+}
+
+#header-options-container {
+    width: 100%;
+    display: none;
 }
 
 .header-menu-item {
@@ -68,28 +77,92 @@ html,body {
     color: #4DB6AC;
 }
 
-#username-error {
-    color: red;
-    display: none;
-}
+
 
 #login-container {
-    width: 70%;
+    width: 100%;
     height:100%;
     position: relative;
     float: left;
     display: none;
-    padding: 40px;
+    padding: 20px;
     color: #4DB6AC;
 }
 
-#username-input {
-    width: 250px;
+#login-login-section {
+    width: 620px;
+    height:100%;
+    position: relative;
+    float: left;
 }
 
-#loginButton {
-    margin-top: 5px;
+#login-logo-section {
+    height:100%;
+    position:relative;
+    float:left;
 }
+
+#login-logo-text-container {
+    position: absolute;
+    left: 90px;
+    top: 80px;
+}
+    #login-logo-thurtain {
+        font-size:90px;
+        display: none;
+    }
+    #login-logo-headsup {
+        font-size:35px;
+        margin-left:50px;
+        margin-top:-30px;
+        display: none;
+    }
+
+.login-screen-button {
+    width: 100%;
+    background-color: #4DB6AC;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    margin-top:2px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+    .login-screen-button:hover {
+        cursor: pointer;
+        background-color: #B1ECE6;
+    }
+
+#login-screen-loginError {
+    display: none;
+}
+
+#login-screen-createError {
+    display: none;
+}
+
+#login-screen-blankError {
+    display: none;
+}
+
+#login-create-processing {
+    margin-top: 2px;
+    display: none;
+}
+
+#login-login-processing {
+    margin-top: 2px;
+    display: none;
+}
+
+.h-orange {
+    color: #F9A825;
+}
+
+.t-center {
+    text-align: center;
+}
+
 
 #game-container {
     width: 70%;
@@ -97,8 +170,17 @@ html,body {
     position: relative;
     float: left;
     display: none;
-    padding: 20px;
+    padding: 10px;
 }
+
+#leaderboard {
+    float: left;
+    clear: both;
+    margin-top:15px;
+    width: 60%;
+}
+
+
 
 #player-screen {
     width: 100%;
@@ -110,14 +192,23 @@ html,body {
     height:100%;
 }
 
+#waiting-screen {
+    width:100%;
+}
+
+#waiting-bar-user-stats {
+    float: right;
+}
+
 #sit-to-play {
-    padding: 10px;
+    float: left;
+    padding: 5px;
     border-radius: 4px;
     background-color: #37bc9b;
     color: white;
     text-align: center;
-    width: 300px;
-    font-size: 25px;   
+    width: 200px;
+    font-size: 15px;   
 }
     #sit-to-play:hover {
         cursor: pointer;
@@ -125,13 +216,14 @@ html,body {
     }
 
 #stand-up {
-    padding: 10px;
+    float: left;
+    padding: 5px;
     border-radius: 4px;
     background-color: #FDD835;
     color: white;
     text-align: center;
-    width: 300px;
-    font-size: 25px; 
+    width: 200px;
+    font-size: 15px; 
     display: none;  
 }
     #stand-up:hover {
@@ -156,19 +248,20 @@ html,body {
     font-weight: 500;
     margin-bottom:5px;
     padding-bottom:5px;
+    border-bottom: 1px solid #EEEEEE;
 }
 
 .user {
-    border-bottom:1px solid #bababa;
+    border-bottom:1px solid #EEEEEE;
     padding:5px;
     font-size: 12px;
-    background-color: #e7e7e7;
+    /*background-color: #e7e7e7;*/
     color: #727272;
 }
 
-.user:first-child {
-    border-top:1px solid #bababa;
-}
+/*.user:first-child {
+    border-top:1px solid #EEEEEE;
+}*/
 
 .userlist-name {
     font-size: 15px;
@@ -270,8 +363,8 @@ html,body {
         #player-screen-table-liveplay {
             float:left;
             clear:both;
-            height: 95px;
-            width: 95%;
+            height: 130px;
+            width: 100%;
             border: 2px solid #4DB6AC;
             border-radius: 5px;
             padding: 10px;
@@ -285,6 +378,7 @@ html,body {
             top: 0;
             left: 0;
             padding: 10px;
+            padding-bottom: 3px;
         }
             #player-screen-whos-turn {
                 width: 33.3%;
@@ -306,12 +400,23 @@ html,body {
                 width: 33.3%;
                 float: left;
             }
+            #player-screen-alltimerecord {
+                clear:both;
+                float:left;
+            }
         
     #player-screen-cards {
         clear:both;
         float: left;
-        width: 100%;
-        /*height: 250px;*/
+        width: 100%;        
+    }
+
+    #player-cards-container {
+        float: left;
+        clear:both;
+        width:100%;
+        height: 218px;
+        border: 1px dashed gray;
     }
 
 #viewer-screen {
@@ -340,13 +445,7 @@ html,body {
     margin-top: 15px;
 }
 
-#player1-cardplayed-header {
-    /*display: none;*/
-}
 
-#player2-cardplayed-header {
-    /*display: none;*/
-}
 
 #viewer-player-two {
     float:left;
@@ -380,18 +479,17 @@ html,body {
     height: 98px;
     background-image: url('../img/cards.png');
     background-repeat: no-repeat;
-    zoom: 0.7;
     float: left;
     margin: 5px;
-    transition: all .2s ease-in-out;
+    /*transition: all .2s ease-in-out;*/
 }
-    .playing-card:hover {
+    /*.playing-card:hover {
         transform: scale(1.1);
-    }
+    }*/
 
 .card-animated.ng-move,
 .card-animated.ng-enter,
-.card-animated.ng-leave{
+.card-animated.ng-leave {
   -webkit-transition:all linear 0.5s;
   transition:all linear 0.5s;
 }
@@ -432,4 +530,8 @@ html,body {
 
 .highlighted {
     outline: 4px solid #4DB6AC;
+}
+
+.fs-80 {
+    font-size: 80%;
 }

@@ -6,6 +6,7 @@ using Microsoft.AspNet.SignalR;
 using UserService;
 using System.Threading.Tasks;
 using GameService.DTO;
+using DbService;
 
 namespace Thurtain.Hubs
 {
@@ -32,23 +33,6 @@ namespace Thurtain.Hubs
             Clients.All.UpdateAllUserList(AllUsers.Users);
         }
 
-        public void Disconnect()
-        {
-            Players.RemovePlayer(Context.ConnectionId);
-            PlayerStoodUp standEventData = new PlayerStoodUp()
-            {
-                User = AllUsers.GetUserBy(Context.ConnectionId),
-                SeatsAvailable = 2 - Players.GetPlayers().Count
-            };
-
-            IHubContext gameHubContext = GlobalHost.ConnectionManager.GetHubContext<GameHub>();
-            gameHubContext.Clients.All.StandEvent(standEventData);
-
-            AllUsers.RemoveUserBy(Context.ConnectionId);
-            SendUpdatedAllUsersList();
-            Viewers.UpdateViewerList();
-        }
-
         public override Task OnConnected()
         {
             SendUpdatedAllUsersList();
@@ -65,6 +49,15 @@ namespace Thurtain.Hubs
 
         public override Task OnDisconnected(bool stopCalled)
         {
+            // check if player was playing.. record loss if applicable
+            var playersList = Players.GetPlayers();
+            var possiblePlayer = playersList.Where(p => p.ConnectionId == Context.ConnectionId).FirstOrDefault();
+
+            if (Players.GetPlayers().Count == 2 && (possiblePlayer != null))
+            {
+                GameDbService.PlayerLeft(Context.ConnectionId);
+            }
+
             Players.RemovePlayer(Context.ConnectionId);
             PlayerStoodUp standEventData = new PlayerStoodUp()
             {
