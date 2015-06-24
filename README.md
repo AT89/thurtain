@@ -10,6 +10,6 @@ It's of course best played with 2 different people, but you can test the functio
 
 The clientside UI is built with Angular, while the backend utilizes a C#/.NET stack to handle the live connections, interact with the DB, and define the models and entities. Below is a more detailed list of technologies used:
 
-### FRONTEND
+#### FRONTEND
 * AngularJS, HTML5, CSS
 * The game logic is handled here (what hands are playable, what beats what, etc.)
